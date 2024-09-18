@@ -4,29 +4,41 @@ import { Button } from "@mui/material";
 import Body from "./Componants/Body";
 import Store from "./redux/store";
 import { Provider } from "react-redux";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Log_in from "./Componants/Page_1/Log_in";
+import Homepage from "./Componants/Page_2/Homepage";
+import Users from "./Componants/Page3/Users";
+import Profile from "./Componants/Page_4/Profile";
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <Body />,
+    children: [
+      {
+        path: "/",
+        element: <Log_in />,
+      },
+      {
+        path: "/newsFeed",
+        element: <Homepage />,
+      },
+      {
+        path: "/users",
+        element: <Users />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
     <Provider store={Store}>
       <div className="App">
-        {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-        {/* <Button>Primary</Button>
-      <Button disabled>Disabled</Button>
-      <Button href="#text-buttons">Link</Button> */}
-        <Body />
+        <RouterProvider router={appRouter} />
       </div>
     </Provider>
   );

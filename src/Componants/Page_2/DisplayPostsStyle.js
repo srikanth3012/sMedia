@@ -1,3 +1,5 @@
+const themeColor = JSON.parse(localStorage.getItem("moon"));
+
 export const CardContainer = {
   root: {
     // display: "flex",

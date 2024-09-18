@@ -7,7 +7,6 @@ const PhotoSlicer = createSlice({
   },
   reducers: {
     addPhotoList: (state, { payload }) => {
-      console.log(payload);
       state.Photos = payload;
     },
   },

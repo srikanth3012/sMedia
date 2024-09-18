@@ -4,6 +4,7 @@ import CommentSlicer from "./Slicers/CommentSlicer";
 import PhotoSlicer from "./Slicers/PhotoSlicer";
 import PostServicesSlicer from "./Slicers/PostServicesSlicer";
 import CombinedDataSlicer from "./Slicers/CombinedDataSlicer";
+import themeSlicer from "./Slicers/themeSlicer";
 
 const Store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const Store = configureStore({
     Photo: PhotoSlicer,
     Posts: PostServicesSlicer,
     combineData: CombinedDataSlicer,
+    theme: themeSlicer,
   },
 });
 export default Store;

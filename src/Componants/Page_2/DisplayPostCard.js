@@ -2,7 +2,8 @@ import React from "react";
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { DisplayPostsStyles } from "./DisplayPostsStyle";
 
-const DisplayPostCard = ({ item }) => {
+const DisplayPostCard = ({ item, onClickHandler }) => {
+  const themeColor = JSON.parse(localStorage.getItem("moon"));
   return (
     <Card
       sx={{
@@ -12,7 +13,12 @@ const DisplayPostCard = ({ item }) => {
         padding: 1,
         boxShadow: 3,
         borderRadius: 2,
+        border: 1,
+        borderColor: "gray",
+        backgroundColor: themeColor?.bgColor,
+        color: themeColor?.color,
       }}
+      onClick={onClickHandler}
     >
       <Grid sx={DisplayPostsStyles.root}>
         <Box
@@ -22,17 +28,17 @@ const DisplayPostCard = ({ item }) => {
           src={item?.userImageURL}
         />
 
-        <CardContent>
+        <CardContent color={"white"}>
           {" "}
           <Typography gutterBottom variant="p" component="div">
             {item?.user}
           </Typography>
           <Box display={"flex"} gap={0.2}>
             {" "}
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption">
               {item?.collections} collections
             </Typography>
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption">
               {(item?.views / 1000).toFixed(1)}k views
             </Typography>
           </Box>
