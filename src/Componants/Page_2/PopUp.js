@@ -13,9 +13,11 @@ import PopUpUserWork from "./PopUpUserWork";
 
 const PopUp = ({ item, setPopUpItem }) => {
   const [displayItem, setDisplayItem] = useState(item);
+  const [translatedText, setTranslatedText] = useState("");
   const combinedData = useSelector((store) => store?.combineData?.CombinedData);
   const itemidx = combinedData.indexOf(displayItem);
   const rightClickHandler = (direction) => {
+    setTranslatedText("");
     const item =
       direction === "right"
         ? combinedData[itemidx + 1]
@@ -23,6 +25,26 @@ const PopUp = ({ item, setPopUpItem }) => {
     setDisplayItem(item);
   };
   const popUpHandler = () => setPopUpItem("");
+  const handleTranslate = (title, body) => {
+    if (translatedText) setTranslatedText("");
+    else {
+      convertToEnglish();
+      async function convertToEnglish() {
+        const text = title + " " + "srikamth" + " " + body;
+        console.log(text);
+        const response = await fetch(
+          `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
+            text
+          )}&langpair=la|en`
+        );
+        const data = await response.json();
+        const translated = data.responseData.translatedText;
+        const splitText = translated.toLowerCase().split("srikamth");
+        console.log(splitText);
+        setTranslatedText(splitText);
+      }
+    }
+  };
   return (
     <>
       <div
@@ -100,8 +122,22 @@ const PopUp = ({ item, setPopUpItem }) => {
                 overflow: "hidden",
               }}
             >
-              <Typography variant="body2">{displayItem?.title}</Typography>
-              <Typography variant="body2">{displayItem?.body}</Typography>
+              <Typography variant="body2">
+                {translatedText[0] || displayItem?.title}
+              </Typography>
+              <Typography variant="body2">
+                {translatedText[1]
+                  ? translatedText[1]
+                  : "" || displayItem?.body}
+              </Typography>
+              <Button
+                sx={{ fontSize: 10 }}
+                onClick={() =>
+                  handleTranslate(displayItem?.title, displayItem?.body)
+                }
+              >
+                {translatedText.length === 0 ? "Translate" : "original"}
+              </Button>
             </CardContent>
             <PopUpUserWork />
           </Grid>
