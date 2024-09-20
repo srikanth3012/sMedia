@@ -27,7 +27,7 @@ const appRouter = createBrowserRouter([
         element: <Users />,
       },
       {
-        path: "/profile",
+        path: `/:profile`,
         element: <Profile />,
       },
     ],

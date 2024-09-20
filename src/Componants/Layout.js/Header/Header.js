@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography } from "@mui/material";
 import HeaderStyles from "./HeaderStyle";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -13,6 +13,7 @@ const Header = () => {
   const [theme, setTheme] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const themeColor = JSON.parse(localStorage.getItem("moon"));
   /// useEffect for if themeColorExist it will set ThemeColor at 1st render
   useEffect(() => {

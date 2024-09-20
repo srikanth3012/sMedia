@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DisplayPostsStyles } from "./DisplayPostsStyle";
 import {
   Box,
@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import PopUpUserWork from "./PopUpUserWork";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const PopUp = ({ item, setPopUpItem }) => {
   const [displayItem, setDisplayItem] = useState(item);
@@ -92,12 +93,19 @@ const PopUp = ({ item, setPopUpItem }) => {
         <Grid sx={{ display: "flex", flexDirection: "row-reverse" }}>
           <Grid sx={{ display: "flex", flexDirection: "column", padding: 1 }}>
             <Grid sx={DisplayPostsStyles.root}>
-              <Box
-                component="img"
-                sx={DisplayPostsStyles.img}
-                alt="userImg"
-                src={displayItem?.userImageURL}
-              />
+              {item?.userImageURL ? (
+                <Box
+                  component="img"
+                  sx={DisplayPostsStyles.img}
+                  alt="userImg"
+                  src={item?.userImageURL}
+                />
+              ) : (
+                <AccountCircleIcon
+                  sx={{ width: 60, height: 60 }}
+                  color={"action"}
+                />
+              )}
 
               <CardContent>
                 {" "}

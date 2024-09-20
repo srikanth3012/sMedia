@@ -4,14 +4,23 @@ import UserServices from "../Services/Api/UserServices";
 import PostsService from "../Services/Api/PostsService";
 import PhotoServices from "../Services/Api/PhotoServices";
 import CombinedData from "../Helper/CombinedData";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addsetTheme } from "../redux/Slicers/themeSlicer";
 import SearchBar from "./Layout.js/Searchbar/SearchBar";
 
+var count = 0;
+function apiServices() {
+  UserServices();
+  PostsService();
+  PhotoServices();
+  CombinedData();
+}
+
 const Body = () => {
   const [theme, setTheme] = useState();
   const dispatch = useDispatch();
+
   UserServices();
   PostsService();
   PhotoServices();
@@ -47,6 +56,7 @@ const Body = () => {
       >
         <Header />
       </div>
+
       <div
         style={{
           display: "flex",
@@ -59,6 +69,7 @@ const Body = () => {
       >
         <SearchBar />
       </div>
+
       <Outlet />
     </div>
   );

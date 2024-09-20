@@ -1,9 +1,12 @@
 import React from "react";
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { DisplayPostsStyles } from "./DisplayPostsStyle";
+import { useSelector } from "react-redux";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const DisplayPostCard = ({ item, onClickHandler }) => {
-  const themeColor = JSON.parse(localStorage.getItem("moon"));
+  console.log(item);
+  const moontheme = useSelector((store) => store?.theme?.themeStore);
   return (
     <Card
       sx={{
@@ -15,18 +18,26 @@ const DisplayPostCard = ({ item, onClickHandler }) => {
         borderRadius: 2,
         border: 1,
         borderColor: "gray",
-        backgroundColor: themeColor?.bgColor,
-        color: themeColor?.color,
+        backgroundColor: moontheme?.bgColor,
+        color: moontheme?.color,
+        textAlign: "left",
       }}
       onClick={onClickHandler}
     >
       <Grid sx={DisplayPostsStyles.root}>
-        <Box
-          component="img"
-          sx={DisplayPostsStyles.img}
-          alt="userImg"
-          src={item?.userImageURL}
-        />
+        {item?.userImageURL ? (
+          <Box
+            component="img"
+            sx={DisplayPostsStyles.img}
+            alt="userImg"
+            src={item?.userImageURL}
+          />
+        ) : (
+          <AccountCircleIcon
+            sx={{ width: 60, height: 60 }}
+            color={moontheme ? moontheme?.color : "action"}
+          />
+        )}
 
         <CardContent color={"white"}>
           {" "}

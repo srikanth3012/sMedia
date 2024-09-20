@@ -75,3 +75,6 @@ features
 --> Night and morng mode
 --> Infinite Scorll
 --> translate Feature
+
+today task
+make profile UI/UX and preview
