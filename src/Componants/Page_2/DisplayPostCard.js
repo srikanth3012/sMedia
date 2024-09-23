@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const DisplayPostCard = ({ item, onClickHandler }) => {
-  console.log(item);
   const moontheme = useSelector((store) => store?.theme?.themeStore);
   return (
     <Card

@@ -43,17 +43,12 @@ const UploadPostForm = ({ postSubmit }) => {
     }
   };
   const handleInputTitle = (e) => {
-    const inputTitle = e.target.value;
-    setPostTitle(inputTitle);
     setPostDetails({ ...postDetails, [e.target.name]: e.target.value });
   };
   const handleInputBody = (e) => {
-    const inputBody = e.target.value;
-    console.log(e.target.name);
-    setPostBody(inputBody);
     setPostDetails({ ...postDetails, [e.target.name]: e.target.value });
   };
-  postDetails && console.log(postDetails);
+
   return (
     <>
       <form
@@ -105,6 +100,15 @@ const UploadPostForm = ({ postSubmit }) => {
             <Button variant="contained" component="span">
               Upload Image
             </Button>
+            {!postDetails?.webformatURL && (
+              <Button
+                variant="contained"
+                component="span"
+                sx={{ marginLeft: 1 }}
+              >
+                Upload Video
+              </Button>
+            )}
           </label>
 
           {/* Display Selected Image */}

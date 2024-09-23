@@ -59,13 +59,13 @@ const Header = () => {
           </div>
         </Grid>
         <Grid item xs={12} md={6} display={"flex"} alignItems={"center"}>
-          <Button onClick={() => navigateHandler("newsFeed")} color="#b33500">
+          <Button onClick={() => navigateHandler("newsFeed/1")} color="#b33500">
             News Feed
           </Button>
-          <Button onClick={() => navigateHandler("users")} color="#b33500">
+          <Button onClick={() => navigateHandler("users/2")} color="#b33500">
             users
           </Button>
-          <Button color="#b33500" onClick={() => navigateHandler("profile")}>
+          <Button color="#b33500" onClick={() => navigateHandler("profile/3")}>
             Profile
           </Button>
           <AccountCircleIcon

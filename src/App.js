@@ -19,15 +19,15 @@ const appRouter = createBrowserRouter([
         element: <Log_in />,
       },
       {
-        path: "/newsFeed",
+        path: "/newsFeed/:p1",
         element: <Homepage />,
       },
       {
-        path: "/users",
+        path: "/users/:p2",
         element: <Users />,
       },
       {
-        path: `/:profile`,
+        path: `/profile/:p3`,
         element: <Profile />,
       },
     ],

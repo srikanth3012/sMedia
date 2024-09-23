@@ -72,9 +72,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ---
 
 features
---> Night and morng mode
+--> Night and morng mode ---done
+--> translate Feature --- done
+--> preview of uploading post -- done
+--> add videos post to page
 --> Infinite Scorll
---> translate Feature
+--> guide user to how to use application
+-->highlite searched content results
 
 today task
-make profile UI/UX and preview
