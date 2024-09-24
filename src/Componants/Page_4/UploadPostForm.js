@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCombinedData } from "../../redux/Slicers/CombinedDataSlicer";
 import DisplayPostCard from "../Page_2/DisplayPostCard";
 const UploadPostForm = ({ postSubmit }) => {
+  const [showPreview, setShowPreview] = useState(null);
   const [postDetails, setPostDetails] = useState({
     id: 1,
     user: "Srikanth",
@@ -13,11 +14,9 @@ const UploadPostForm = ({ postSubmit }) => {
     title: "",
     body: "",
   });
-  const [postImg, setPostImg] = useState();
-  const [postTitle, setPostTitle] = useState();
-  const [postBody, setPostBody] = useState();
   const dispatch = useDispatch();
   const combinedData = useSelector((store) => store?.combineData?.CombinedData);
+
   useEffect(() => {
     if (postSubmit) {
       const modifiedData = [postDetails, ...combinedData];
@@ -32,21 +31,22 @@ const UploadPostForm = ({ postSubmit }) => {
           body: "",
         },
       ]);
+      setShowPreview(false);
     }
   }, [postSubmit]);
+
   const handleImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       const imageUrl = URL.createObjectURL(file);
-
       setPostDetails({ ...postDetails, [event.target.name]: imageUrl });
     }
+    setShowPreview(true);
   };
-  const handleInputTitle = (e) => {
+
+  const handleFormInput = (e) => {
     setPostDetails({ ...postDetails, [e.target.name]: e.target.value });
-  };
-  const handleInputBody = (e) => {
-    setPostDetails({ ...postDetails, [e.target.name]: e.target.value });
+    setShowPreview(true);
   };
 
   return (
@@ -68,8 +68,8 @@ const UploadPostForm = ({ postSubmit }) => {
           <OutlinedInput
             name="title"
             placeholder="Please enter Title"
-            value={postDetails?.title}
-            onChange={handleInputTitle}
+            value={postDetails?.title || ""}
+            onChange={handleFormInput}
             sx={{ m: 1, backgroundColor: "white", width: "30vw" }}
           />
           <OutlinedInput
@@ -77,8 +77,8 @@ const UploadPostForm = ({ postSubmit }) => {
             multiline
             rows={6}
             placeholder="Please enter youre Thoughts"
-            value={postDetails?.body}
-            onChange={handleInputBody}
+            value={postDetails?.body || ""}
+            onChange={handleFormInput}
             sx={{
               m: 1,
               backgroundColor: "white",
@@ -100,38 +100,14 @@ const UploadPostForm = ({ postSubmit }) => {
             <Button variant="contained" component="span">
               Upload Image
             </Button>
-            {!postDetails?.webformatURL && (
-              <Button
-                variant="contained"
-                component="span"
-                sx={{ marginLeft: 1 }}
-              >
-                Upload Video
-              </Button>
-            )}
-          </label>
 
-          {/* Display Selected Image */}
-          {postDetails?.webformatURL && (
-            <Box
-              component="img"
-              src={postDetails?.webformatURL}
-              alt="Uploaded"
-              sx={{
-                position: "fixed",
-                m: 2,
-                mt: -2,
-                width: 150,
-                height: 150,
-                objectFit: "cover",
-                borderRadius: "10px",
-                boxShadow: 3,
-              }}
-            />
-          )}
+            <Button variant="contained" component="span" sx={{ marginLeft: 1 }}>
+              Upload Video
+            </Button>
+          </label>
         </Box>
       </form>
-      {postDetails?.title?.length > 0 && (
+      {showPreview && (
         <Container
           sx={{ display: "flex", position: "absolute", right: "-50%" }}
         >

@@ -1,31 +1,27 @@
 import { Container } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import DisplayPostCard from "./DisplayPostCard";
 import PopUp from "./PopUp";
 
 const DisplayPosts = () => {
-  const [popUpItem, setPopUpItem] = useState();
-  const [postsData, setPostsData] = useState();
+  const [popUpItem, setPopUpItem] = useState(null);
   const combinedData = useSelector((store) => store?.combineData?.CombinedData);
   const searchFillterData = useSelector(
     (store) => store?.sfPostsDataArray?.sfPostsData
   );
 
-  useEffect(() => {
-    const data =
-      searchFillterData?.length > 0 ? searchFillterData : combinedData;
-    setPostsData(data);
-  }, [searchFillterData]);
+  const postsData = useMemo(() => {
+    return searchFillterData?.length > 0 ? searchFillterData : combinedData;
+  }, [searchFillterData, combinedData]); // Memoize postsData
 
-  const onClickHandler = (item) => {
+  const popUpHandler = (item) => {
     setPopUpItem(item);
   };
 
   return (
     combinedData && (
       <>
-        {" "}
         <Container
           sx={{
             display: "flex",
@@ -36,7 +32,7 @@ const DisplayPosts = () => {
           {postsData?.map((item) => (
             <DisplayPostCard
               item={item}
-              onClickHandler={() => onClickHandler(item)}
+              popUpHandler={() => popUpHandler(item)}
               key={item?.id}
             />
           ))}
@@ -46,5 +42,9 @@ const DisplayPosts = () => {
     )
   );
 };
+
+// Wrap DisplayPostCard and PopUp with React.memo
+export const MemoizedDisplayPostCard = React.memo(DisplayPostCard);
+export const MemoizedPopUp = React.memo(PopUp);
 
 export default DisplayPosts;

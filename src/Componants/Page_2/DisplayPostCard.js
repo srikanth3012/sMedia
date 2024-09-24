@@ -4,7 +4,7 @@ import { DisplayPostsStyles } from "./DisplayPostsStyle";
 import { useSelector } from "react-redux";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const DisplayPostCard = ({ item, onClickHandler }) => {
+const DisplayPostCard = ({ item, popUpHandler }) => {
   const moontheme = useSelector((store) => store?.theme?.themeStore);
   return (
     <Card
@@ -21,7 +21,7 @@ const DisplayPostCard = ({ item, onClickHandler }) => {
         color: moontheme?.color,
         textAlign: "left",
       }}
-      onClick={onClickHandler}
+      onClick={popUpHandler}
     >
       <Grid sx={DisplayPostsStyles.root}>
         {item?.userImageURL ? (
@@ -68,7 +68,7 @@ const DisplayPostCard = ({ item, onClickHandler }) => {
       <Box
         component="img"
         sx={{ width: 350, height: 250, objectFit: "cover" }}
-        alt="userImg"
+        alt="postImg"
         src={item?.webformatURL}
       />
       <hr style={{ position: "relative", top: -4 }} />

@@ -1,37 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import UsersCard from "./UsersCard";
 import { Container } from "@mui/material";
 
 const Users = () => {
-  const [usersData, setUsersData] = useState(useEffect(() => {}, []));
   const combinedData = useSelector((store) => store?.combineData?.CombinedData);
   const searchFillterData = useSelector(
     (store) => store?.sfUsersDataArray?.sfUsersData
   );
-  useEffect(() => {
+
+  // Use useMemo to memoize the usersData
+  const usersData = useMemo(() => {
     const data =
       searchFillterData?.length > 0 ? searchFillterData : combinedData;
-    const sortedUsers = [...data].sort((a, b) => a.user.localeCompare(b.user));
-    setUsersData(sortedUsers);
-  }, [searchFillterData]);
+    return [...data].sort((a, b) => a?.user?.localeCompare(b.user));
+  }, [searchFillterData, combinedData]); // Add dependencies here
 
-  if (!usersData) return null;
   return (
-    usersData && (
-      <Container
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          textAlign: "left",
-        }}
-      >
-        {usersData?.map((item) => (
-          <UsersCard user={item} />
-        ))}
-      </Container>
-    )
+    <Container
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        textAlign: "left",
+      }}
+    >
+      {usersData.length > 0 ? (
+        usersData.map((item) => (
+          <UsersCard key={item.id} user={item} /> // Ensure you have a unique key
+        ))
+      ) : (
+        <div>No users found.</div>
+      )}
+    </Container>
   );
 };
+
+// Wrap UsersCard with React.memo
+export const MemoizedUsersCard = React.memo(UsersCard);
 
 export default Users;
